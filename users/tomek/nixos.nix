@@ -7,10 +7,6 @@
   # Add ~/.local/bin to PATH
   environment.localBinInPath = true;
 
-  # environment.systemPackages = [
-  #   inputs.ghostty.packages.${pkgs.stdenv.system}.default
-  # ];
-
   # Since we're using fish as our shell
   programs.fish.enable = true;
 
@@ -24,8 +20,4 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII94r7GTR92EGcu/gj9WwRkUJ/2gQ0qro4rxROUuywGM tomasznanowski@gmail.com"
     ];
   };
-
-  nixpkgs.overlays = import ../../lib/overlays.nix ++ [
-    (import ./vim.nix { inherit inputs; })
-  ];
 }

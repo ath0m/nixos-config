@@ -43,6 +43,7 @@ in {
     pkgs.valgrind
     pkgs.zathura
     pkgs.xfce.xfce4-terminal
+    pkgs.neovim
   ];
 
   #---------------------------------------------------------------------
@@ -66,15 +67,6 @@ in {
     "rofi/config.rasi".text = builtins.readFile ./rofi;
 
     "starship/config.toml".text = builtins.readFile ./starship.toml;
-
-    # tree-sitter parsers
-    "nvim/parser/proto.so".source = "${pkgs.tree-sitter-proto}/parser";
-    "nvim/queries/proto/folds.scm".source =
-      "${sources.tree-sitter-proto}/queries/folds.scm";
-    "nvim/queries/proto/highlights.scm".source =
-      "${sources.tree-sitter-proto}/queries/highlights.scm";
-    "nvim/queries/proto/textobjects.scm".source =
-      ./textobjects.scm;
   };
 
   #---------------------------------------------------------------------
@@ -232,60 +224,6 @@ in {
       "wireless _first_".enable = false;
       "battery all".enable = false;
     };
-  };
-
-  programs.neovim = {
-    enable = true;
-    package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
-
-    withPython3 = true;
-
-    plugins = with pkgs; [
-      customVim.vim-copilot
-      customVim.vim-cue
-      customVim.vim-fish
-      customVim.vim-fugitive
-      customVim.vim-glsl
-      customVim.vim-misc
-      customVim.vim-pgsql
-      customVim.vim-tla
-      customVim.vim-zig
-      customVim.pigeon
-      customVim.AfterColors
-
-      customVim.vim-nord
-      customVim.nvim-cinnamon
-      customVim.nvim-comment
-      customVim.nvim-conform
-      customVim.nvim-lspconfig
-      customVim.nvim-plenary # required for telescope
-      customVim.nvim-telescope
-      customVim.nvim-treesitter
-      customVim.nvim-treesitter-playground
-      customVim.nvim-treesitter-textobjects
-
-      vimPlugins.vim-airline
-      vimPlugins.vim-airline-themes
-      vimPlugins.vim-eunuch
-      vimPlugins.vim-gitgutter
-
-      vimPlugins.vim-markdown
-      vimPlugins.vim-nix
-      vimPlugins.typescript-vim
-      vimPlugins.nvim-treesitter-parsers.elixir
-    ] ++ (lib.optionals (false) [
-    ]);
-
-    extraConfig = (import ./vim-config.nix) { inherit sources; };
-  };
-
-  services.gpg-agent = {
-    enable = true;
-    pinentryPackage = pkgs.pinentry-tty;
-
-    # cache the keys forever so we don't get asked for a password
-    defaultCacheTtl = 31536000;
-    maxCacheTtl = 31536000;
   };
 
   xresources.extraConfig = builtins.readFile ./Xresources;
