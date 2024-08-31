@@ -476,7 +476,7 @@ local config = {
   default_cursor_style = 'BlinkingBlock',
   default_cwd = wezterm.home_dir,
   font = wezterm.font(font, { weight = 'Regular' }),
-  font_size = 13.0,
+  font_size = 11.0,
   hyperlink_rules = wezterm.default_hyperlink_rules(),
   inactive_pane_hsb = {
     saturation = 1.0,
@@ -506,7 +506,6 @@ local config = {
   tab_max_width = 80,
   underline_position = -4,
   use_fancy_tab_bar = false,
-  window_background_opacity = 1,
   macos_window_background_blur = 19,
   window_decorations = 'RESIZE',
   tab_bar_at_bottom = true,

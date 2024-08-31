@@ -60,7 +60,7 @@
   services.xserver = {
     enable = true;
     xkb.layout = "us";
-    dpi = 220;
+    dpi = 120;
 
     desktopManager = {
       xterm.enable = false;
@@ -75,7 +75,7 @@
       # display resolution. This is a known issue with VMware Fusion.
       sessionCommands = ''
         ${pkgs.xorg.xset}/bin/xset r rate 200 40
-        ${pkgs.xorg.xrandr}/bin/xrandr -s 2560x1600
+        ${pkgs.xorg.xrandr}/bin/xrandr -s 2560x1440
       '';
     };
 
@@ -116,7 +116,7 @@
     # For hypervisors that support auto-resizing, this script forces it.
     # I've noticed not everyone listens to the udev events so this is a hack.
     (writeShellScriptBin "xrandr-auto" ''
-      xrandr --output Virtual-1 --mode 2560x1600
+      xrandr --output Virtual-1 --mode 2560x1440
     '')
   ] ++ lib.optionals (currentSystemName == "vm-aarch64") [
     # This is needed for the vmware user tools clipboard to work.
