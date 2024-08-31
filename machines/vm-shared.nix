@@ -1,8 +1,6 @@
 { config, pkgs, lib, currentSystem, currentSystemName,... }:
 
-let
-  linuxGnome = false;
-in {
+{
   # Be careful updating this.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 

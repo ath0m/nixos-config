@@ -3,8 +3,6 @@
 { config, lib, pkgs, ... }:
 
 let
-  sources = import ../../nix/sources.nix;
-
   # For our MANPAGER env var
   # https://github.com/sharkdp/bat/issues/1145
   manpager = (pkgs.writeShellScriptBin "manpager" ''
@@ -73,8 +71,6 @@ in {
   # Programs
   #---------------------------------------------------------------------
 
-  programs.gpg.enable = true;
-
   programs.bash = {
     enable = true;
     shellOptions = [];
@@ -114,24 +110,12 @@ in {
       pbcopy = "xclip";
       pbpaste = "xclip -o";
     };
-
-    plugins = map (n: {
-      name = n;
-      src  = sources.${n};
-    }) [
-      "fish-fzf"
-      "fish-foreign-env"
-    ];
   };
 
   programs.git = {
     enable = true;
     userName = "Tomasz Nanowski";
     userEmail = "tomasz.nanowski@gmail.com";
-    # signing = {
-    #   key = "5B5DA6AE3D8D2BA5";
-    #   signByDefault = true;
-    # };
     aliases = {
       cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|develop' | xargs -n 1 -r git branch -d";
       prettylog = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(r) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
@@ -148,12 +132,6 @@ in {
     };
   };
 
-  programs.go = {
-    enable = true;
-    goPath = "code/go";
-    goPrivate = [ "github.com/ath0m" ];
-  };
-
   programs.tmux = {
     enable = true;
     terminal = "xterm-256color";
@@ -168,15 +146,7 @@ in {
       set -g @dracula-show-weather false
 
       bind -n C-k send-keys "clear"\; send-keys "Enter"
-
-      run-shell ${sources.tmux-pain-control}/pain_control.tmux
-      run-shell ${sources.tmux-dracula}/dracula.tmux
     '';
-  };
-
-  programs.kitty = {
-    enable = true;
-    extraConfig = builtins.readFile ./kitty;
   };
 
   programs.wezterm = {
@@ -191,9 +161,6 @@ in {
 
   programs.lazygit = {
     enable = true;
-    settings = {
-
-    };
   };
 
   programs.atuin = {
