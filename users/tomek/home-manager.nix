@@ -2,13 +2,7 @@
 
 { config, lib, pkgs, ... }:
 
-let
-  # For our MANPAGER env var
-  # https://github.com/sharkdp/bat/issues/1145
-  manpager = (pkgs.writeShellScriptBin "manpager" ''
-    cat "$1" | col -bx | bat --language man --style plain
-  '');
-in {
+{
   # Home-manager 22.11 requires this be set. We never set it so we have
   # to use the old state version.
   home.stateVersion = "18.09";
@@ -54,7 +48,6 @@ in {
     LC_ALL = "en_US.UTF-8";
     EDITOR = "nvim";
     PAGER = "less -FirSwX";
-    MANPAGER = "${manpager}/bin/manpager";
   };
 
   home.file.".inputrc".source = ./inputrc;
