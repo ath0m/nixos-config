@@ -18,7 +18,6 @@
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
-
   # Disable the default module and import our override. We have
   # customizations to make this work on aarch64.
   disabledModules = [ "virtualisation/vmware-guest.nix" ];
@@ -26,15 +25,6 @@
   # Lots of stuff that uses aarch64 that claims doesn't work, but actually works.
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnsupportedSystem = true;
-
-  nix = {
-    package = pkgs.nixVersions.latest;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-      keep-outputs = true
-      keep-derivations = true
-    '';
-  };
 
   # This works through our custom module imported above
   virtualisation.vmware.guest.enable = true;
@@ -63,9 +53,6 @@
       fsType = "vfat";
     };
   swapDevices = [ ];
-
-  # Set your time zone.
-  time.timeZone = "Europe/London";
 
   # Disable the firewall since we're in a VM and we want to make it
   # easy to visit stuff in here. We only use NAT networking anyways.
@@ -123,40 +110,6 @@
   };
   services.displayManager.defaultSession = "none+i3";
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.mutableUsers = false;
-
-  # Manage fonts. We pull these from a secret directory since most of these
-  # fonts require a purchase.
-  fonts = {
-    fontDir.enable = true;
-
-    packages = [
-      pkgs.fira-code
-      pkgs.jetbrains-mono
-    ];
-  };
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    gnumake
-    killall
-    xclip
-    xorg.libxcvt
-
-    # This is needed for the vmware user tools clipboard to work.
-    # You can test if you don't need this by deleting this and seeing
-    # if the clipboard sill works.
-    gtkmm3
-
-    # For hypervisors that support auto-resizing, this script forces it.
-    # I've noticed not everyone listens to the udev events so this is a hack.
-    (writeShellScriptBin "xrandr-auto" ''
-      xrandr --output Virtual-1 --mode 2560x1440
-    '')
-  ];
-
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = true;
@@ -168,5 +121,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "20.09"; # Did you read the comment?
+  system.stateVersion = "24.05"; # Did you read the comment?
 }

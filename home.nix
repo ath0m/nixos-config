@@ -3,29 +3,20 @@
 {
   # Home-manager 22.11 requires this be set. We never set it so we have
   # to use the old state version.
-  home.stateVersion = "18.09";
+  home.stateVersion = "24.05";
 
   # Packages I always want installed. Most packages I install using
   # per-project flakes sourced with direnv and nix-shell, so this is
   # not a huge list.
   home.packages = [
-    pkgs.asciinema
     pkgs.bat
     pkgs.fd
     pkgs.fzf
     pkgs.gh
     pkgs.htop
-    pkgs.jq
     pkgs.ripgrep
-    pkgs.tree
-    pkgs.watch
-    pkgs.gopls
-    pkgs.nodejs
     pkgs.chromium
-    pkgs.firefox
     pkgs.rofi
-    pkgs.valgrind
-    pkgs.zathura
     pkgs.xfce.xfce4-terminal
     pkgs.neovim
   ];

@@ -20,12 +20,35 @@
     # The config files for this system.
     machineConfig = ./machines/vm-aarch64.nix;
     configuration = { pkgs, ... }: {
-      # Add ~/.local/bin to PATH
-      environment.localBinInPath = true;
+      # List packages installed in system profile. To search, run:
+      # $ nix search wget
+      environment.systemPackages = with pkgs; [
+        gnumake
+        killall
+        xclip
+        xorg.libxcvt
+
+        # This is needed for the vmware user tools clipboard to work.
+        gtkmm3
+
+        # For hypervisors that support auto-resizing, this script forces it.
+        # I've noticed not everyone listens to the udev events so this is a hack.
+        (writeShellScriptBin "xrandr-auto" ''
+          xrandr --output Virtual-1 --mode 2560x1440
+        '')
+      ];
+      # Necessary for using flakes on this system.
+      nix.settings.experimental-features = "nix-command flakes";
+      nix.settings.trusted-users = [ "tomek" ];
+
+      # Set your time zone.
+      time.timeZone = "Europe/London";
 
       # Since we're using fish as our shell
       programs.fish.enable = true;
 
+      # Define a user account. Don't forget to set a password with ‘passwd’.
+      users.mutableUsers = false;
       users.users.tomek = {
         isNormalUser = true;
         home = "/home/tomek";
@@ -36,11 +59,20 @@
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII94r7GTR92EGcu/gj9WwRkUJ/2gQ0qro4rxROUuywGM tomasznanowski@gmail.com"
         ];
       };
+
+      # Manage fonts. We pull these from a secret directory since most of these
+      # fonts require a purchase.
+      fonts = {
+        fontDir.enable = true;
+        packages = [
+          pkgs.fira-code
+          pkgs.jetbrains-mono
+        ];
+      };
     };
   in {
-    nixosConfigurations.vm-aarch64 = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.darwin = nixpkgs.lib.nixosSystem {
       system = "aarch64-linux";
-
       modules = [
         machineConfig
         configuration
