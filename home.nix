@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgsUnstable, ... }:
 
 {
   # Home-manager 22.11 requires this be set. We never set it so we have
@@ -18,7 +18,7 @@
     pkgs.chromium
     pkgs.rofi
     pkgs.xfce.xfce4-terminal
-    pkgs.neovim
+    pkgsUnstable.neovim
   ];
 
   #---------------------------------------------------------------------
