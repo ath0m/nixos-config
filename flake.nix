@@ -12,7 +12,7 @@
 
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
 
@@ -71,7 +71,7 @@
       };
     };
   in {
-    nixosConfigurations.darwin = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.newton = nixpkgs.lib.nixosSystem {
       system = "aarch64-linux";
       modules = [
         machineConfig
