@@ -94,6 +94,11 @@
     };
   };
 
+  programs.eza = {
+    enable = true;
+    icons = true;
+  };
+
   programs.i3status = {
     enable = true;
 
