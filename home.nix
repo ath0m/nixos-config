@@ -1,17 +1,9 @@
-{ inputs, ... }:
-
 { config, lib, pkgs, ... }:
 
 {
   # Home-manager 22.11 requires this be set. We never set it so we have
   # to use the old state version.
   home.stateVersion = "18.09";
-
-  xdg.enable = true;
-
-  #---------------------------------------------------------------------
-  # Packages
-  #---------------------------------------------------------------------
 
   # Packages I always want installed. Most packages I install using
   # per-project flakes sourced with direnv and nix-shell, so this is
@@ -50,13 +42,16 @@
     PAGER = "less -FirSwX";
   };
 
-  home.file.".inputrc".source = ./inputrc;
+  home.file.".inputrc".source = ./dotfiles/inputrc;
 
+  xdg.enable = true;
   xdg.configFile = {
-    "i3/config".text = builtins.readFile ./i3;
-    "rofi/config.rasi".text = builtins.readFile ./rofi;
-    "starship/config.toml".text = builtins.readFile ./starship.toml;
+    "i3/config".text = builtins.readFile ./dotfiles/i3;
+    "rofi/config.rasi".text = builtins.readFile ./dotfiles/rofi;
+    "starship/config.toml".text = builtins.readFile ./dotfiles/starship.toml;
   };
+
+  xresources.extraConfig = builtins.readFile ./dotfiles/Xresources;
 
   #---------------------------------------------------------------------
   # Programs
@@ -65,7 +60,7 @@
   programs.fish = {
     enable = true;
     interactiveShellInit = lib.strings.concatStrings (lib.strings.intersperse "\n" ([
-      (builtins.readFile ./config.fish)
+      (builtins.readFile ./dotfiles/config.fish)
       "set -g SHELL ${pkgs.fish}/bin/fish"
     ]));
   };
@@ -83,7 +78,7 @@
 
   programs.wezterm = {
     enable = true;
-    extraConfig = builtins.readFile ./wezterm.lua;
+    extraConfig = builtins.readFile ./dotfiles/wezterm.lua;
   };
 
   programs.starship = {
@@ -124,8 +119,6 @@
       "battery all".enable = false;
     };
   };
-
-  xresources.extraConfig = builtins.readFile ./Xresources;
 
   # Make cursor not tiny on HiDPI screens
   # home.pointerCursor = {

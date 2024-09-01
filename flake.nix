@@ -17,42 +17,37 @@
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: let
-    name = "vm-aarch64";
-    system = "aarch64-linux";
-    user = "tomek";
-
     # The config files for this system.
-    machineConfig = ./machines/${name}.nix;
-    userOSConfig = ./users/${user}/nixos.nix;
-    userHMConfig = ./users/${user}/home-manager.nix;
+    machineConfig = ./machines/vm-aarch64.nix;
+    configuration = { pkgs, ... }: {
+      # Add ~/.local/bin to PATH
+      environment.localBinInPath = true;
 
-    # NixOS
-    systemFunc = nixpkgs.lib.nixosSystem;
-    home-manager = inputs.home-manager.nixosModules;
+      # Since we're using fish as our shell
+      programs.fish.enable = true;
+
+      users.users.tomek = {
+        isNormalUser = true;
+        home = "/home/tomek";
+        extraGroups = [ "docker" "wheel" ];
+        shell = pkgs.fish;
+        hashedPassword = "$y$j9T$nmx.5c9dOnNg4ksj3b8gg/$INJG7iF2jfBYD/15oCQr/tUV4aoH8cX5lEgDUenw.Y0";
+        openssh.authorizedKeys.keys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII94r7GTR92EGcu/gj9WwRkUJ/2gQ0qro4rxROUuywGM tomasznanowski@gmail.com"
+        ];
+      };
+    };
   in {
-    nixosConfigurations.vm-aarch64 = systemFunc {
-      inherit system;
+    nixosConfigurations.vm-aarch64 = nixpkgs.lib.nixosSystem {
+      system = "aarch64-linux";
 
       modules = [
         machineConfig
-        userOSConfig
-        home-manager.home-manager {
+        configuration
+        home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.${user} = import userHMConfig {
-            inputs = inputs;
-          };
-        }
-
-        # We expose some extra arguments so that our modules can parameterize
-        # better based on these values.
-        {
-          config._module.args = {
-            currentSystem = system;
-            currentSystemName = name;
-            currentSystemUser = user;
-            inputs = inputs;
-          };
+          home-manager.users.tomek = import ./home.nix;
         }
       ];
     };
