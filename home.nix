@@ -18,6 +18,10 @@
     pkgs.chromium
     pkgs.rofi
     pkgs.xfce.xfce4-terminal
+    pkgs.libgcc
+    pkgs.home-manager
+    pkgs.unzip
+    pkgs.wget
     pkgsUnstable.neovim
   ];
 
