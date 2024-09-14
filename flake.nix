@@ -75,6 +75,7 @@
         packages = [
           pkgs.fira-code
           pkgs.jetbrains-mono
+          pkgs.nerdfonts
         ];
       };
     };

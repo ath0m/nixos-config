@@ -32,7 +32,7 @@
     pkgs.tree-sitter
     pkgs.nodejs
     pkgs.cargo
-    pkgs.rustc
+    pkgsUnstable.rustc
     pkgsUnstable.neovim
   ];
 

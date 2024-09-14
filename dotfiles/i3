@@ -199,6 +199,7 @@ bindsym $mod+BackSpace mode "$mode_system"
 # finds out, if available)
 bar {
     status_command i3status
+    position top
 
     font pango:Fira Code 8
     colors {
