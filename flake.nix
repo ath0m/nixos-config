@@ -14,9 +14,14 @@
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-ld = {
+      url = "github:Mic92/nix-ld";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ... }@inputs: let
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, nix-ld, ... }@inputs: let
     system = "aarch64-linux";
     # Unstable pkgs
     pkgsUnstable = import nixpkgs-unstable { inherit system; };
@@ -85,6 +90,8 @@
           home-manager.users.tomek = import ./home.nix;
           home-manager.extraSpecialArgs = { inherit pkgsUnstable; };
         }
+        nix-ld.nixosModules.nix-ld
+        { programs.nix-ld.dev.enable = true; }
       ];
     };
   };

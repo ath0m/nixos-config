@@ -22,6 +22,17 @@
     pkgs.home-manager
     pkgs.unzip
     pkgs.wget
+    pkgs.aichat
+
+    pkgs.gcc
+    pkgs.python3
+    pkgs.go
+    pkgs.lua
+    pkgs.luarocks
+    pkgs.tree-sitter
+    pkgs.nodejs
+    pkgs.cargo
+    pkgs.rustc
     pkgsUnstable.neovim
   ];
 
@@ -57,6 +68,7 @@
     interactiveShellInit = lib.strings.concatStrings (lib.strings.intersperse "\n" ([
       (builtins.readFile ./dotfiles/config.fish)
       "set -g SHELL ${pkgs.fish}/bin/fish"
+      "source ~/.secrets.fish"
     ]));
   };
 
