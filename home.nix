@@ -22,6 +22,7 @@
     wget
     silver-searcher
     nix-search-cli
+    jq
 
     # i3
     i3wsr

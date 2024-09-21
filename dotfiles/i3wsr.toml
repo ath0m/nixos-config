@@ -8,7 +8,7 @@ wezterm = "Wezterm"
 Chromium = "Chromium"
 
 [general]
-split_at = ":"
+split_at = " "
 display_property = "instance" # class, instance, name
 
 [options]

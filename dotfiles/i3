@@ -143,6 +143,15 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 
+# bindsym $mod+Shift+n exec i3-input -F 'rename workspace to "%s"' -P 'New name: '
+# bindsym $mod+Shift+n exec i3-input -F 'rename workspace to "%s"' -P 'New name: ' -l "$(i3-msg -t get_workspaces | jq -r '.[] | select(.focused==true).name')"
+
+# rename workspaces
+bindsym $mod+p exec i3-input -F "rename workspace to "$(i3-msg -t get_workspaces | jq -r "map(select(.focused))[0].num"):%s"" -P "New name: "
+# clear workspace name
+bindsym $mod+Shift+p exec i3-msg "rename workspace to "$(i3-msg -t get_workspaces | jq -r "map(select(.focused))[0].num")""
+
+
 #----------------------------------------------------------------------
 # Resize Mode
 #----------------------------------------------------------------------
