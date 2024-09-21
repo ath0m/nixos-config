@@ -1,8 +1,6 @@
 ---@diagnostic disable: unused-local
 local wezterm = require("wezterm")
 local act = wezterm.action
-local font = "Fira Code Nerd Font"
--- local font = "JetBrainsMono Nerd Font"
 local key_mod_panes = "CMD"
 
 -- Global state
@@ -475,7 +473,8 @@ local config = {
 	cursor_blink_rate = 500,
 	default_cursor_style = "BlinkingBlock",
 	default_cwd = wezterm.home_dir,
-	font = wezterm.font(font, { weight = "Regular" }),
+	-- font = wezterm.font("VictorMono Nerd Font Propo", { weight = "DemiBold", stretch = "Normal" }),
+	font = wezterm.font("CaskaydiaMono Nerd Font Propo", { weight = "Medium", stretch = "Normal", style = "Normal" }),
 	font_size = 11.0,
 	hyperlink_rules = wezterm.default_hyperlink_rules(),
 	inactive_pane_hsb = {

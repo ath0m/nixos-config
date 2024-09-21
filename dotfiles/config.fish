@@ -114,3 +114,5 @@ set -gx EDITOR nvim
 # `fnix -p go` to get an environment with Go but use the fish shell along
 # with it.
 alias fnix "nix-shell --run fish"
+
+alias vim nvim

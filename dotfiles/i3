@@ -48,7 +48,7 @@ exec --no-startup-id xsetroot -solid $back
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-bindsym $mod+o exec rofi -show run
+bindsym $mod+o exec rofi -show combi
 
 # start a terminal
 bindsym $mod+n exec wezterm
@@ -56,7 +56,18 @@ bindsym $mod+d split h
 bindsym $mod+Shift+d split v
 
 # kill focused window
-bindsym $mod+w kill
+set $close "Close the window? (y/n)"
+
+mode $close {
+    bindsym y kill, mode default
+    bindsym Return kill, mode default
+
+    bindsym n mode default
+    bindsym Escape mode default
+}
+bindsym $mod+w mode $close
+
+# bindsym $mod+w kill
 
 # change focus
 bindsym $mod+h focus left

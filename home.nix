@@ -8,32 +8,35 @@
   # Packages I always want installed. Most packages I install using
   # per-project flakes sourced with direnv and nix-shell, so this is
   # not a huge list.
-  home.packages = [
-    pkgs.bat
-    pkgs.fd
-    pkgs.fzf
-    pkgs.gh
-    pkgs.htop
-    pkgs.ripgrep
-    pkgs.chromium
-    pkgs.rofi
-    pkgs.xfce.xfce4-terminal
-    pkgs.libgcc
-    pkgs.home-manager
-    pkgs.unzip
-    pkgs.wget
-    pkgs.aichat
+  home.packages = with pkgsUnstable; [
+    bat
+    fd
+    fzf
+    gh
+    htop
+    ripgrep
+    chromium
+    rofi
+    xfce.xfce4-terminal
+    libgcc
+    home-manager
+    unzip
+    wget
+    aichat
+    silver-searcher
+    nix-search-cli
+    zathura
 
-    pkgs.gcc
-    pkgs.python3
-    pkgs.go
-    pkgs.lua
-    pkgs.luarocks
-    pkgs.tree-sitter
-    pkgs.nodejs
-    pkgs.cargo
-    pkgsUnstable.rustc
-    pkgsUnstable.neovim
+    gcc
+    python3
+    go
+    lua
+    luarocks
+    tree-sitter
+    nodejs
+    cargo
+    rustc
+    neovim
   ];
 
   #---------------------------------------------------------------------
