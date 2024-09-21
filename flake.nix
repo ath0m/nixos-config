@@ -24,7 +24,10 @@
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, nix-ld, ... }@inputs: let
     system = "aarch64-linux";
     # Unstable pkgs
-    pkgsUnstable = import nixpkgs-unstable { inherit system; };
+    pkgsUnstable = import nixpkgs-unstable {
+      inherit system;
+      config.allowUnfree = true;
+    };
     # The config files for this system.
     machineConfig = ./machines/vm-aarch64.nix;
     configuration = { pkgs, ... }: {

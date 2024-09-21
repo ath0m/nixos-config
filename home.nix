@@ -9,35 +9,42 @@
   # per-project flakes sourced with direnv and nix-shell, so this is
   # not a huge list.
   home.packages = with pkgsUnstable; [
-    bat
-    fd
-    fzf
-    gh
-    htop
-    ripgrep
-    chromium
-    rofi
-    xfce.xfce4-terminal
-    libgcc
-    home-manager
-    unzip
-    wget
-    aichat
-    silver-searcher
-    nix-search-cli
-    zathura
-
-    gcc
-    python3
-    go
-    lua
-    luarocks
-    tree-sitter
-    nodejs
-    cargo
-    rustc
-    neovim
-  ];
+      # System utilities
+      bat
+      fd
+      fzf
+      gh
+      htop
+      ripgrep
+      libgcc
+      home-manager
+      unzip
+      wget
+      silver-searcher
+      nix-search-cli
+  
+      # GUI applications
+      chromium
+      rofi
+      xfce.xfce4-terminal
+      zathura
+      obsidian
+  
+      # Development tools
+      gcc
+      python3
+      go
+      lua
+      luarocks
+      tree-sitter
+      nodejs
+      cargo
+      rustc
+      neovim
+  
+      # AI tools
+      aichat
+    ];
 
   #---------------------------------------------------------------------
   # Env vars and dotfiles
