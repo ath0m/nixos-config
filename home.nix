@@ -23,6 +23,9 @@
     silver-searcher
     nix-search-cli
 
+    # i3
+    i3wsr
+
     # GUI applications
     chromium
     rofi
@@ -65,6 +68,7 @@
     "i3/config".text = builtins.readFile ./dotfiles/i3;
     "rofi/config.rasi".text = builtins.readFile ./dotfiles/rofi;
     "starship/config.toml".text = builtins.readFile ./dotfiles/starship.toml;
+    "i3wsr/config.toml".text = builtins.readFile ./dotfiles/i3wsr.toml;
   };
 
   xresources.extraConfig = builtins.readFile ./dotfiles/Xresources;

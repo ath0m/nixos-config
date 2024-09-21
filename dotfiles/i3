@@ -217,3 +217,5 @@ bar {
         background $back
     }
 }
+
+exec_always --no-startup-id i3wsr

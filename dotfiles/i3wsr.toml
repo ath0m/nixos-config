@@ -1,0 +1,18 @@
+[icons]
+# font awesome
+Wezterm = ""
+Chromium = ""
+
+[aliases]
+wezterm = "Wezterm"
+Chromium = "Chromium"
+
+[general]
+split_at = ":"
+display_property = "instance" # class, instance, name
+
+[options]
+remove_duplicates = false
+no_names = false
+no_icon_names = true
+
