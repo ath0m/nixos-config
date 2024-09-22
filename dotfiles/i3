@@ -8,8 +8,8 @@ set $mod Mod4
 font pango:Fira Code 8
 
 # Window visuals
-new_window pixel 2
-new_float pixel 2
+new_window pixel 3
+new_float pixel 3
 floating_minimum_size 400 x 300
 floating_maximum_size -1 x -1
 focus_follows_mouse no
@@ -42,6 +42,8 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 # No background
 exec --no-startup-id xsetroot -solid $back
 
+exec_always --no-startup-id i3wsr
+
 #----------------------------------------------------------------------
 # Keybindings
 #----------------------------------------------------------------------
@@ -49,6 +51,9 @@ exec --no-startup-id xsetroot -solid $back
 floating_modifier $mod
 
 bindsym $mod+o exec rofi -show combi
+
+# Start qutebrowser
+bindsym $mod+b exec qutebrowser
 
 # start a terminal
 bindsym $mod+n exec wezterm
@@ -227,4 +232,3 @@ bar {
     }
 }
 
-exec_always --no-startup-id i3wsr

@@ -33,6 +33,7 @@
     xfce.xfce4-terminal
     zathura
     obsidian
+    qutebrowser
 
     # Development tools
     gcc
@@ -70,6 +71,7 @@
     "rofi/config.rasi".text = builtins.readFile ./dotfiles/rofi;
     "starship/config.toml".text = builtins.readFile ./dotfiles/starship.toml;
     "i3wsr/config.toml".text = builtins.readFile ./dotfiles/i3wsr.toml;
+    "qutebrowser/config.py".text = builtins.readFile ./dotfiles/qutebrowser.py;
   };
 
   xresources.extraConfig = builtins.readFile ./dotfiles/Xresources;
