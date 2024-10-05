@@ -11,6 +11,7 @@
   home.packages = with pkgsUnstable; [
     # System utilities
     bat
+    btop
     fd
     fzf
     gh

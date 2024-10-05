@@ -2,10 +2,12 @@
 # font awesome
 Wezterm = ""
 Chromium = ""
+qutebrowser = ""
 
 [aliases]
 wezterm = "Wezterm"
 Chromium = "Chromium"
+qutebrowser = "qutebrowser"
 
 [general]
 split_at = " "
