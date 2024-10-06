@@ -18,7 +18,9 @@
     htop
     ripgrep
     libgcc
+    libz
     home-manager
+    marksman
     unzip
     wget
     silver-searcher
@@ -35,6 +37,7 @@
     zathura
     obsidian
     qutebrowser
+    st
 
     # Development tools
     gcc

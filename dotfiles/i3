@@ -74,6 +74,13 @@ bindsym $mod+w mode $close
 
 # bindsym $mod+w kill
 
+bindsym $mod+Tab workspace next
+bindsym $mod+Shift+Tab workspace prev
+
+# scratchpads
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
