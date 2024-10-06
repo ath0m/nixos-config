@@ -93,6 +93,13 @@
     ]));
   };
 
+  programs.direnv = {
+    enable = true;
+    package = pkgsUnstable.direnv;
+    nix-direnv.enable = true;
+    nix-direnv.package = pkgsUnstable.nix-direnv;
+  };
+
   programs.git = {
     enable = true;
     userName = "Tomasz Nanowski";
