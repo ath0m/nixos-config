@@ -105,6 +105,7 @@
     "i3wsr".source = dotfiles/i3wsr;
     "qutebrowser/config.py".source = dotfiles/qutebrowser.py;
     "i3status".source = dotfiles/i3status;
+
     "alacritty".source = dotfiles/alacritty;
 
     "aichat/config.yaml".source = dotfiles/aichat/config.yaml;
@@ -136,6 +137,10 @@
       color.ui = true;
       init.defaultBranch = "main";
     };
+  };
+
+  programs.alacritty = {
+    enable = true;
   };
 
   programs.wezterm = {
