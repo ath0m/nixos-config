@@ -1,13 +1,17 @@
 { config, lib, pkgs, pkgsUnstable, ... }:
 
 {
-  # Home-manager 22.11 requires this be set. We never set it so we have
-  # to use the old state version.
+  # This value determines the Home Manager release that your configuration is
+  # compatible with. This helps avoid breakage when a new Home Manager release
+  # introduces backwards incompatible changes.
+  #
+  # You should not change this value, even if you update Home Manager. If you do
+  # want to update the value, then make sure to first check the Home Manager
+  # release notes.
   home.stateVersion = "24.05";
 
-  # Packages I always want installed. Most packages I install using
-  # per-project flakes sourced with direnv and nix-shell, so this is
-  # not a huge list.
+  # The home.packages option allows you to install Nix packages into your
+  # environment.
   home.packages = with pkgsUnstable; [
     # System utilities
     bat
@@ -43,8 +47,8 @@
     gcc
     python3
     go
-    lua
-    luarocks
+    lua51Packages.lua
+    lua51Packages.luarocks
     tree-sitter
     nodejs
     cargo
@@ -55,9 +59,6 @@
     aichat
   ];
 
-  #---------------------------------------------------------------------
-  # Env vars and dotfiles
-  #---------------------------------------------------------------------
 
   home.sessionVariables = {
     LANG = "en_US.UTF-8";
@@ -67,15 +68,36 @@
     PAGER = "less -FirSwX";
   };
 
-  home.file.".inputrc".source = ./dotfiles/inputrc;
+
+  # Home Manager is pretty good at managing dotfiles. The primary way to manage
+  # plain files is through 'home.file'.
+  home.file = {
+    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
+    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
+    # # symlink to the Nix store copy.
+    ".config/i3status".source = dotfiles/i3status;
+    ".config/alacritty".source = dotfiles/alacritty;
+
+    ".config/aichat/config.yaml".source = dotfiles/aichat/config.yaml;
+    ".config/aichat/roles".source = dotfiles/aichat/roles;
+
+    ".config/nvim/lua".source = dotfiles/nvim/lua;
+    ".config/nvim/init.lua".source = dotfiles/nvim/init.lua;
+    ".config/nvim/stylua.toml".source = dotfiles/nvim/stylua.toml;
+    # # You can also set the file content immediately.
+    # ".gradle/gradle.properties".text = ''
+    #   org.gradle.console=verbose
+    #   org.gradle.daemon.idletimeout=3600000
+    # '';
+  };
 
   xdg.enable = true;
   xdg.configFile = {
-    "i3/config".text = builtins.readFile ./dotfiles/i3;
-    "rofi/config.rasi".text = builtins.readFile ./dotfiles/rofi;
-    "starship/config.toml".text = builtins.readFile ./dotfiles/starship.toml;
-    "i3wsr/config.toml".text = builtins.readFile ./dotfiles/i3wsr.toml;
-    "qutebrowser/config.py".text = builtins.readFile ./dotfiles/qutebrowser.py;
+    "i3".source = dotfiles/i3;
+    "rofi".source = dotfiles/rofi;
+    "starship/config.toml".source = dotfiles/starship.toml;
+    "i3wsr".source = dotfiles/i3wsr;
+    "qutebrowser/config.py".source = dotfiles/qutebrowser.py;
   };
 
   xresources.extraConfig = builtins.readFile ./dotfiles/Xresources;

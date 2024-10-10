@@ -1,0 +1,51 @@
+import:
+  # uncomment the flavour you want below:
+  - ~/.config/alacritty/catppuccin-mocha.yml
+
+window:
+  padding:
+    x: 1
+    y: 1
+
+  # Spread additional padding evenly around the terminal content.
+  dynamic_padding: false
+
+  # Window decorations
+  #
+  # Available values:
+  # - full: borders and title bar
+  # - none: neither borders nor title bar
+  # - transparent: title bar, transparent background and title bar buttons
+  # - buttonless: title bar, transparent background, but no title bar buttonless
+  decorations: full
+
+font:
+  # The normal (roman) font face to use.
+  # Style can be specified to pick a specific face.
+  normal:
+    # family: Iosevka
+    style: "Retina,Regular"
+    family: "FiraCode Nerd Font Mono"
+    # family: "Source Code Pro"
+    # style: Retina
+
+  # The bold font face
+  bold:
+    # family: Iosevka
+    style: "Bold"
+    family: "FiraCode Nerd Font Mono"
+    # family: "Source Code Pro"
+
+  # The italic font face
+  italic:
+    # family: Iosevka
+    style: "Light,Regular"
+    # style: "Light Oblique"
+    family: "FiraCode Nerd Font Mono"
+    # family: "Source Code Pro"
+    # style: "Medium Italic"
+  size: 12.0
+
+  offset:
+    x: 0
+    y: 1
