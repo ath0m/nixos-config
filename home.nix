@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgsUnstable, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   # This value determines the Home Manager release that your configuration is
@@ -12,7 +12,7 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = with pkgsUnstable; [
+  home.packages = with pkgs; [
     # System utilities
     bat
     btop
@@ -124,9 +124,7 @@
 
   programs.direnv = {
     enable = true;
-    package = pkgsUnstable.direnv;
     nix-direnv.enable = true;
-    nix-direnv.package = pkgsUnstable.nix-direnv;
   };
 
   programs.git = {
