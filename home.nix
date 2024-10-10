@@ -17,7 +17,6 @@
     bat
     btop
     fd
-    fzf
     gh
     htop
     ripgrep
@@ -60,6 +59,22 @@
   ];
 
 
+  # Home Manager can also manage your environment variables through
+  # 'home.sessionVariables'. These will be explicitly sourced when using a
+  # shell provided by Home Manager. If you don't want to manage your shell
+  # through Home Manager then you have to manually source 'hm-session-vars.sh'
+  # located at either
+  #
+  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
+  #
+  # or
+  #
+  #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
+  #
+  # or
+  #
+  #  /etc/profiles/per-user/tomasznanowski/etc/profile.d/hm-session-vars.sh
+  #
   home.sessionVariables = {
     LANG = "en_US.UTF-8";
     LC_CTYPE = "en_US.UTF-8";
@@ -75,15 +90,7 @@
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
-    ".config/i3status".source = dotfiles/i3status;
-    ".config/alacritty".source = dotfiles/alacritty;
 
-    ".config/aichat/config.yaml".source = dotfiles/aichat/config.yaml;
-    ".config/aichat/roles".source = dotfiles/aichat/roles;
-
-    ".config/nvim/lua".source = dotfiles/nvim/lua;
-    ".config/nvim/init.lua".source = dotfiles/nvim/init.lua;
-    ".config/nvim/stylua.toml".source = dotfiles/nvim/stylua.toml;
     # # You can also set the file content immediately.
     # ".gradle/gradle.properties".text = ''
     #   org.gradle.console=verbose
@@ -95,24 +102,24 @@
   xdg.configFile = {
     "i3".source = dotfiles/i3;
     "rofi".source = dotfiles/rofi;
-    "starship/config.toml".source = dotfiles/starship.toml;
     "i3wsr".source = dotfiles/i3wsr;
     "qutebrowser/config.py".source = dotfiles/qutebrowser.py;
+    "i3status".source = dotfiles/i3status;
+    "alacritty".source = dotfiles/alacritty;
+
+    "aichat/config.yaml".source = dotfiles/aichat/config.yaml;
+    "aichat/roles".source = dotfiles/aichat/roles;
+
+    "nvim/lua".source = dotfiles/nvim/lua;
+    "nvim/init.lua".source = dotfiles/nvim/init.lua;
+    "nvim/stylua.toml".source = dotfiles/nvim/stylua.toml;
   };
 
-  xresources.extraConfig = builtins.readFile ./dotfiles/Xresources;
-
-  #---------------------------------------------------------------------
-  # Programs
-  #---------------------------------------------------------------------
+  xresources.extraConfig = builtins.readFile dotfiles/Xresources;
 
   programs.fish = {
     enable = true;
-    interactiveShellInit = lib.strings.concatStrings (lib.strings.intersperse "\n" ([
-      (builtins.readFile ./dotfiles/config.fish)
-      "set -g SHELL ${pkgs.fish}/bin/fish"
-      "source ~/.secrets.fish"
-    ]));
+    interactiveShellInit = builtins.readFile ./dotfiles/fish/config.fish;
   };
 
   programs.direnv = {
@@ -135,12 +142,13 @@
 
   programs.wezterm = {
     enable = true;
-    extraConfig = builtins.readFile ./dotfiles/wezterm.lua;
+    extraConfig = builtins.readFile dotfiles/wezterm.lua;
   };
 
   programs.starship = {
     enable = true;
     enableFishIntegration = true;
+    settings = builtins.fromTOML(builtins.readFile dotfiles/starship.toml);
   };
 
   programs.lazygit = {
@@ -160,9 +168,19 @@
     };
   };
 
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+    defaultOptions = [''--height 20% --border''];
+  };
+
   programs.eza = {
     enable = true;
     icons = true;
+  };
+
+  programs.autojump = {
+    enable = true;
   };
 
   programs.i3status = {
@@ -182,11 +200,6 @@
     };
   };
 
-  # Make cursor not tiny on HiDPI screens
-  # home.pointerCursor = {
-  #   name = "Vanilla-DMZ";
-  #   package = pkgs.vanilla-dmz;
-  #   size = 128;
-  #   x11.enable = true;
-  # };
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
 }

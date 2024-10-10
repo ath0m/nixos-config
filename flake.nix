@@ -93,6 +93,7 @@
           home-manager.useUserPackages = true;
           home-manager.users.tomek = import ./home.nix;
           home-manager.extraSpecialArgs = { inherit pkgsUnstable; };
+          home-manager.backupFileExtension = "backup";
         }
         nix-ld.nixosModules.nix-ld
         { programs.nix-ld.dev.enable = true; }

@@ -116,3 +116,5 @@ set -gx EDITOR nvim
 alias fnix "nix-shell --run fish"
 
 alias vim nvim
+
+source ~/.secrets.fish
