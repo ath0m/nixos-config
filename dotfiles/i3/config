@@ -37,7 +37,7 @@ client.background       $back
 #----------------------------------------------------------------------
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # No background
 exec --no-startup-id xsetroot -solid $back
@@ -52,11 +52,10 @@ floating_modifier $mod
 
 bindsym $mod+o exec rofi -show combi
 
-# Start qutebrowser
-bindsym $mod+b exec qutebrowser
-
 # start a terminal
-bindsym $mod+n exec wezterm
+bindsym $mod+n exec alacritty
+bindsym $mod+b exec qutebrowser
+bindsym $mod+Shift+b exec chromium
 bindsym $mod+d split h
 bindsym $mod+Shift+d split v
 
@@ -78,8 +77,21 @@ bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
 
 # scratchpads
-bindsym $mod+Shift+minus move scratchpad
-bindsym $mod+minus scratchpad show
+bindsym $mod+Shift+minus floating enable, resize set 1300 1100, move scratchpad
+bindsym $mod+minus scratchpad show, move absolute position center
+
+exec "alacritty -t obsidian"
+for_window [class="Alacritty" title="obsidian"], move scratchpad
+bindsym $mod+bracketright [class="Alacritty" title="obsidian"] scratchpad show, move absolute position center
+
+
+exec "alacritty -t aichat"
+for_window [class="Alacritty" title="aichat"], move scratchpad
+bindsym $mod+bracketleft [class="Alacritty" title="aichat"] scratchpad show, move absolute position center
+
+exec "alacritty -t terminal"
+for_window [class="Alacritty" title="terminal"], move scratchpad
+bindsym $mod+backslash [class="Alacritty" title="terminal"] scratchpad show, move absolute position center
 
 # change focus
 bindsym $mod+h focus left
