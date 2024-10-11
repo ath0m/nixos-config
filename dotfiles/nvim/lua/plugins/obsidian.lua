@@ -76,7 +76,7 @@ return {
       workspaces = {
         {
           name = "main",
-          path = "~/rain",
+          path = "~/Brain",
         },
       },
     },

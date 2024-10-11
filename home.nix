@@ -56,6 +56,10 @@
 
     # AI tools
     aichat
+
+    # Avante.nvim dependencies
+    pkg-config
+    openssl.dev
   ];
 
 
